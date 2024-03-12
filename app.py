@@ -3,26 +3,26 @@ from gpiozero import LED
 from threading import Lock
 
 app = Flask(__name__)
-led = LED(23)
+cat = LED(23)
 gpio_lock = Lock()
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/toggle-led', methods=['POST'])
-def toggle_led():
-    global led
+@app.route('/toggle-cat', methods=['POST'])
+def toggle_cat():
+    global cat
     with gpio_lock:
-        if led.is_lit:
-            led.off()
+        if cat.is_lit:
+            cat.off()
         else:
-            led.on()
+            cat.on()
     return ('', 204)
 
 if __name__ == '__main__':
     try:
         app.run(host='0.0.0.0', port=5000, threaded=True)
     finally:
-        led.close()
+        cat.close()
 
