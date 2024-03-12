@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED Control</title>
+    <style>
+        body {
+            text-align: center;
+            margin-top: 50px;
+            font-family: Arial, sans-serif;
+        }
+        #toggleButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>LED Toggle Control</h2>
+    <button id="toggleButton" onclick="toggleLED()">Toggle LED</button>
+
+    <script>
+        function toggleLED() {
+            fetch('/toggle-led', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("LED toggled successfully");
+                } else {
+                    console.error("Failed to toggle LED");
+                }
+            })
+            .catch(error => console.error('Error toggling LED:', error));
+        }
+    </script>
+</body>
+</html>
+
